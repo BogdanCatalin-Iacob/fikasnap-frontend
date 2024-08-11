@@ -1,9 +1,43 @@
 :root {
     --bg-color: #76c893;
     --font-fam: "DM Sans", sans-serif;
+    --font-color: #0c1618;
+    --font-accent-color: #000;
+    --icon-color: #34a0a4;
 }
+
+* {
+    box-sizing: border-box;
+}
+
 .App {
     font-family: var(--font-fam);
     background-color: var(--bg-color);
     min-height: 100vh;
+}
+
+a {
+    color: var(--font-color);
+    transition: color ease-in-out 0.3s;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:hover i {
+    color: var(--font-accent-color);
+    transition: color ease-in-out 0.3s;
+}
+
+i {
+    color: var(--icon-color);
+    font-size: 1.6rem;
+    padding: 7px;
+    vertical-align: middle;
+}
+
+i:hover {
+    cursor: pointer;
+    transition: color ease-in-out 0.3s;
 }
