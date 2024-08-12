@@ -1,1 +1,0 @@
-#FikaSnap - Frontend
