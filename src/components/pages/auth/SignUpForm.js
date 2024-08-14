@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 
 import styles from "../../../styles/SignInUpForm.module.css";
@@ -8,6 +8,24 @@ import appStyles from "../../../App.module.css";
 import { Form, Button, Image, Col, Row, Container } from "react-bootstrap";
 
 const SignUpForm = () => {
+    const [signUpData, setSingUpData] = useState({
+        username: '',
+        password1: '',
+        password2: ''
+    });
+
+    const {username, password1, password2} = signUpData;
+
+    /** Handle changes in the form's inputs */
+    const handleChange = (event) => {
+        setSingUpData({
+            ...signUpData,
+            // create key/value pair with the field name, and
+            // the value entered by the user
+            [event.target.name]: event.target.value
+        })
+    }
+
     return (
         <Row className={styles.Row}>
             <Col className="my-auto py-2 p-md-2" md={6}>
@@ -21,7 +39,9 @@ const SignUpForm = () => {
                                 className={styles.Input}
                                 type="text"
                                 placeholder="Username"
-                                name="username" />
+                                name="username"
+                                value={username}
+                                onChange={handleChange} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="password1">
@@ -30,7 +50,9 @@ const SignUpForm = () => {
                                 className={styles.Input}
                                 type="password"
                                 placeholder="Password"
-                                name="password1" />
+                                name="password1"
+                                value={password1}
+                                onChange={handleChange} />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="password2">
                             <Form.Label className="d-none">Confirm password</Form.Label>
@@ -38,7 +60,9 @@ const SignUpForm = () => {
                                 className={styles.Input}
                                 type="password"
                                 placeholder="Confirm password"
-                                name="password2" />
+                                name="password2"
+                                value={password2}
+                                onChange={handleChange} />
                         </Form.Group>
                         <Button className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`} type="submit">
                             Sign up
