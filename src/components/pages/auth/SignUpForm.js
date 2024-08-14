@@ -46,10 +46,10 @@ const SignUpForm = () => {
         <Row className={styles.Row}>
             <Col className="my-auto py-2 p-md-2" md={6}>
 
-            {/* Sign up form */}
+                {/* Sign up form */}
                 <Container className={`${appStyles.Content} p-4 `}>
                     <h1 className={styles.Header}>sign up</h1>
-                    
+
                     <Form onSubmit={handleSubmit}>
                         {/* Username input */}
                         <Form.Group className="mb-3" controlId="username">
@@ -62,8 +62,12 @@ const SignUpForm = () => {
                                 value={username}
                                 onChange={handleChange} />
                         </Form.Group>
+
                         {/* display errors to user related to username */}
-                        {errors.username?.map((message, index) => <Alert variant="warning" key={index}>{message}</Alert>)}
+                        {errors.username?.map((message, index) => (
+                            <Alert variant="warning" key={index}>
+                                {message}
+                            </Alert>))}
 
                         {/* Password input */}
                         <Form.Group className="mb-3" controlId="password1">
@@ -76,8 +80,12 @@ const SignUpForm = () => {
                                 value={password1}
                                 onChange={handleChange} />
                         </Form.Group>
+
                         {/* display errors related to password */}
-                        {errors.password1?.map((message, index) => <Alert variant="warning" key={index}>{message}</Alert>)}
+                        {errors.password1?.map((message, index) => (
+                            <Alert variant="warning" key={index}>
+                                {message}
+                            </Alert>))}
 
                         {/* Password confirmation input */}
                         <Form.Group className="mb-3" controlId="password2">
@@ -90,15 +98,24 @@ const SignUpForm = () => {
                                 value={password2}
                                 onChange={handleChange} />
                         </Form.Group>
+
                         {/* display errors related to password confirmation */}
-                        {errors.password2?.map((message, index) => <Alert variant="warning" key={index}>{message}</Alert>)}
+                        {errors.password2?.map((message, index) => (
+                            <Alert variant="warning" key={index}>
+                                {message}
+                            </Alert>))}
 
                         {/* Form Submit button */}
                         <Button className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`} type="submit">
                             Sign up
                         </Button>
-                    </Form>
 
+                        {/* display errors non related to input fields */}
+                        {errors.non_fields_errors?.map((message, index) => (
+                            <Alert variant="warning" key={index}>
+                                {message}
+                            </Alert>))}
+                    </Form>
                 </Container>
 
                 {/* Sign in redirect link */}
