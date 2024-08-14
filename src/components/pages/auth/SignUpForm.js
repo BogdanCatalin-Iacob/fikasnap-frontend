@@ -31,6 +31,7 @@ const SignUpForm = () => {
         });
     };
 
+    /**Handle sign up form submit */
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -44,10 +45,13 @@ const SignUpForm = () => {
     return (
         <Row className={styles.Row}>
             <Col className="my-auto py-2 p-md-2" md={6}>
+
+            {/* Sign up form */}
                 <Container className={`${appStyles.Content} p-4 `}>
                     <h1 className={styles.Header}>sign up</h1>
-
+                    
                     <Form onSubmit={handleSubmit}>
+                        {/* Username input */}
                         <Form.Group className="mb-3" controlId="username">
                             <Form.Label className="d-none">Username</Form.Label>
                             <Form.Control
@@ -58,9 +62,10 @@ const SignUpForm = () => {
                                 value={username}
                                 onChange={handleChange} />
                         </Form.Group>
-                        {/* display errors to user */}
+                        {/* display errors to user related to username */}
                         {errors.username?.map((message, index) => <Alert variant="warning" key={index}>{message}</Alert>)}
 
+                        {/* Password input */}
                         <Form.Group className="mb-3" controlId="password1">
                             <Form.Label className="d-none">Password</Form.Label>
                             <Form.Control
@@ -71,6 +76,10 @@ const SignUpForm = () => {
                                 value={password1}
                                 onChange={handleChange} />
                         </Form.Group>
+                        {/* display errors related to password */}
+                        {errors.password1?.map((message, index) => <Alert variant="warning" key={index}>{message}</Alert>)}
+
+                        {/* Password confirmation input */}
                         <Form.Group className="mb-3" controlId="password2">
                             <Form.Label className="d-none">Confirm password</Form.Label>
                             <Form.Control
@@ -81,12 +90,18 @@ const SignUpForm = () => {
                                 value={password2}
                                 onChange={handleChange} />
                         </Form.Group>
+                        {/* display errors related to password confirmation */}
+                        {errors.password2?.map((message, index) => <Alert variant="warning" key={index}>{message}</Alert>)}
+
+                        {/* Form Submit button */}
                         <Button className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`} type="submit">
                             Sign up
                         </Button>
                     </Form>
 
                 </Container>
+
+                {/* Sign in redirect link */}
                 <Container className={`mt-3 ${appStyles.Content}`}>
                     <Link className={styles.Link} to="/signin">
                         Already have an account? <span>Sign in</span>
@@ -97,6 +112,7 @@ const SignUpForm = () => {
                 md={6}
                 className={`my-auto d-none d-md-block p-2 ${styles.SignUpCol}`}
             >
+                {/* image displayed on large screens */}
                 <Image
                     className={`${appStyles.FillerImage}`}
                     src={
