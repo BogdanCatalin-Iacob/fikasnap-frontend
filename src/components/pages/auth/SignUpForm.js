@@ -17,22 +17,31 @@ const SignUpForm = () => {
                     <Form>
                         <Form.Group className="mb-3" controlId="username">
                             <Form.Label className="d-none">Username</Form.Label>
-                            <Form.Control type="text" placeholder="Username" name="username" />
-                            <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                            </Form.Text>
+                            <Form.Control
+                                className={styles.Input}
+                                type="text"
+                                placeholder="Username"
+                                name="username" />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="password1">
                             <Form.Label className="d-none">Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" name="password1" />
+                            <Form.Control
+                                className={styles.Input}
+                                type="password"
+                                placeholder="Password"
+                                name="password1" />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="password2">
                             <Form.Label className="d-none">Confirm password</Form.Label>
-                            <Form.Control type="password" placeholder="Confirm password" name="password2" />
+                            <Form.Control
+                                className={styles.Input}
+                                type="password"
+                                placeholder="Confirm password"
+                                name="password2" />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Submit
+                        <Button className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`} type="submit">
+                            Sign up
                         </Button>
                     </Form>
 
