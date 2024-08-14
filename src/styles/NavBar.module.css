@@ -6,3 +6,11 @@
     background-color: var(--main-bg-color);
     border: 1px solid var(--secondary-bg-color);
 }
+
+.NavLink {
+    padding: 5px;
+}
+
+.Active i {
+    color: #2142b2;
+}
