@@ -1,26 +1,29 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom/cjs/react-router-dom";
 
 import styles from "../../../styles/SignInUpForm.module.css";
 import btnStyles from "../../../styles/Button.module.css";
 import appStyles from "../../../App.module.css";
 
-import { Form, Button, Image, Col, Row, Container } from "react-bootstrap";
+import { Form, Button, Image, Col, Row, Container, Alert } from "react-bootstrap";
 import axios from "axios";
 
 const SignUpForm = () => {
-    const [signUpData, setSingUpData] = useState({
+    const [signUpData, setSignUpData] = useState({
         username: '',
         password1: '',
         password2: ''
     });
 
-    const {username, password1, password2} = signUpData;
+    const { username, password1, password2 } = signUpData;
+
+    const [errors, setErrors] = useState({})
+
     const history = useHistory();
 
     /** Handle changes in the form's inputs */
     const handleChange = (event) => {
-        setSingUpData({
+        setSignUpData({
             ...signUpData,
             // create key/value pair with the field name, and
             // the value entered by the user
@@ -31,9 +34,11 @@ const SignUpForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post('dj-rest-auth/registration/', signUpData);
-            history.push('/signin')
-        } catch (err) {}
+            await axios.post("/dj-rest-auth/registration/", signUpData);
+            history.push("/signin");
+        } catch (err) {
+            setErrors(err.response?.data);
+        }
     };
 
     return (
@@ -53,6 +58,8 @@ const SignUpForm = () => {
                                 value={username}
                                 onChange={handleChange} />
                         </Form.Group>
+                        {/* display errors to user */}
+                        {errors.username?.map((message, index) => <Alert variant="warning" key={index}>{message}</Alert>)}
 
                         <Form.Group className="mb-3" controlId="password1">
                             <Form.Label className="d-none">Password</Form.Label>
