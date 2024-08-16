@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
@@ -10,12 +10,27 @@ import Container from "react-bootstrap/Container";
 
 import { Link } from "react-router-dom";
 
-import styles from "../../styles/SignInUpForm.module.css";
-import btnStyles from "../../styles/Button.module.css";
-import appStyles from "../../App.module.css";
+import styles from "../../../styles/SignInUpForm.module.css";
+import btnStyles from "../../../styles/Button.module.css";
+import appStyles from "../../../App.module.css";
 
 function SignInForm() {
-    //   Add your component logic here
+    const [signInData, setSignInData] = useState({
+        username: '',
+        password: ''
+    });
+
+    const {username, password} = signInData;
+
+    /** Handle changes in the form's inputs */
+    const handleChange = (event) => {
+        setSignInData({
+            ...signInData,
+            // create key/value pair with the field name, and
+            // the value entered by the user
+            [event.target.name]: event.target.value
+        });
+    };
 
     return (
         <Row className={styles.Row}>
@@ -30,7 +45,9 @@ function SignInForm() {
                                 type="text"
                                 placeholder="Username"
                                 name="username"
-                                className={styles.Input} />
+                                className={styles.Input}
+                                value={username}
+                                onChange={handleChange} />
                         </Form.Group>
 
                         {/* password input */}
@@ -40,7 +57,9 @@ function SignInForm() {
                                 type="password"
                                 placeholder="Password"
                                 name="password"
-                                className={styles.Input} />
+                                className={styles.Input}
+                                value={password}
+                                onChange={handleChange} />
                         </Form.Group>
 
                         <Button className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`} type="submit">
