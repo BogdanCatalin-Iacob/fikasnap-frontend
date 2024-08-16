@@ -21,7 +21,7 @@ function SignInForm() {
         password: ''
     });
 
-    const {username, password} = signInData;
+    const { username, password } = signInData;
 
     const history = useHistory();
 
@@ -50,6 +50,7 @@ function SignInForm() {
     return (
         <Row className={styles.Row}>
             <Col className="my-auto p-0 p-md-2" md={6}>
+                {/* Sign in form */}
                 <Container className={`${appStyles.Content} p-4 `}>
                     <h1 className={styles.Header}>sign in</h1>
                     <Form onSubmit={handleSubmit}>
@@ -65,6 +66,13 @@ function SignInForm() {
                                 onChange={handleChange} />
                         </Form.Group>
 
+                        {/* errors related to username field */}
+                        {errors.username?.map((message, index) => (
+                            <Alert variant="warning" key={index}>
+                                {message}
+                            </Alert>
+                        ))}
+
                         {/* password input */}
                         <Form.Group controlId="password">
                             <Form.Label className="d-none">Password</Form.Label>
@@ -76,10 +84,24 @@ function SignInForm() {
                                 value={password}
                                 onChange={handleChange} />
                         </Form.Group>
+                        {/* errors related to password field */}
+                        {errors.password?.map((message, index) => (
+                            <Alert variant="warning" key={index}>
+                                {message}
+                            </Alert>
+                        ))}
 
+                        {/* sign in button */}
                         <Button className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`} type="submit">
                             Sign In
                         </Button>
+
+                        {/* errors not related to username or password fields */}
+                        {errors.non_field_errors?.map((message, index) => (
+                            <Alert variant="warning" className="mt-3" key={index}>
+                                {message}
+                            </Alert>
+                        ))}
                     </Form>
 
                 </Container>
