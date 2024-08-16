@@ -112,7 +112,7 @@ const SignUpForm = () => {
 
                         {/* display errors non related to input fields */}
                         {errors.non_fields_errors?.map((message, index) => (
-                            <Alert variant="warning" key={index}>
+                            <Alert variant="warning" className="mt-3" key={index}>
                                 {message}
                             </Alert>))}
                     </Form>
