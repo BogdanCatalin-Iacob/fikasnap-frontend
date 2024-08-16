@@ -3,6 +3,7 @@
 ## Table of contents
 *   [User Experience Design](#user-experience-design)
     *   [User Stories](#user-stories)
+*   [Technologies](#technologies)
     
 ## User experience design
 *   ### User stories
@@ -45,3 +46,9 @@
     | 28 | User | View all the posts by a specific user | Catch up on their latest posts or follow them |
     | 29 | Profile Owner | Logged in user can edit own profile | Change profile picture and bio |
     | 30 | Profile Owner | Logged in user can update username and password | Change my display name and keep my profile secure |
+
+## Technologies
+*   Javascript
+*   ReactJs
+*   React-Bootstrap
+*   Axios
