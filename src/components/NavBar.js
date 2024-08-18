@@ -2,13 +2,14 @@ import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import styles from "../styles/NavBar.module.css"
 import { NavLink } from "react-router-dom/cjs/react-router-dom";
+import logo from "../assets/camera-shutter.png";
 
 const NavBar = () => {
     return (
         <Navbar className={styles.NavBar} expand="md" fixed="top">
             <Container>
                 <NavLink to="/">
-                    <Navbar.Brand>FikaSnap</Navbar.Brand>
+                    <Navbar.Brand><img src={logo} alt="logo" height="45" />FikaSnap</Navbar.Brand>
                 </NavLink>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
