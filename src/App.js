@@ -6,9 +6,6 @@ import './api/axiosDefaults'
 import SignUpForm from "./components/pages/auth/SignUpForm";
 import SignInForm from "./components/pages/auth/SignInForm";
 
-
-
-
 function App() {
     return (
         <div className={styles.App}>
