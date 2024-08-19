@@ -8,26 +8,24 @@ import SignInForm from "./components/pages/auth/SignInForm";
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
-export const CurrentUserContext = createContext()
-export const SetCurrentUserContext = createContext()
+export const CurrentUserContext = createContext();
+export const SetCurrentUserContext = createContext();
 
 function App() {
-    // persist a state of the current logged user
     const [currentUser, setCurrentUser] = useState(null);
 
-    /** Make a network request to check who the user is*/
     const handleMount = async () => {
         try {
-            const { data } = await axios.get('dj-rest-auth/user/')
-            setCurrentUser(data)
+            const { data } = await axios.get("dj-rest-auth/user/");
+            setCurrentUser(data);
         } catch (err) {
             console.log(err);
         }
-    }
+    };
 
     useEffect(() => {
-        handleMount()
-    }, [])
+        handleMount();
+    }, []);
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
@@ -42,7 +40,7 @@ function App() {
                             <Route render={() => <p>Page not found!</p>} />
                         </Switch>
                     </Container>
-                </div >
+                </div>
             </SetCurrentUserContext.Provider>
         </CurrentUserContext.Provider>
     );
