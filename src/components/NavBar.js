@@ -6,18 +6,23 @@ import logo from "../assets/camera-shutter.png";
 import { CurrentUserContext } from "../App";
 
 const NavBar = () => {
-    const currentUser = useContext(CurrentUserContext)
-    const loggedInIcons = (
-        <>
-            {currentUser?.username}
-        </>
-    )
+    const currentUser = useContext(CurrentUserContext);
+
+    const loggedInIcons = <>{currentUser?.username}</>;
     const loggedOutIcons = (
         <>
-            <NavLink className={styles.NavLink} activeClassName={styles.Active} to="/signin">
-                <i className="fas fa-sign-in"></i>Sign in
+            <NavLink
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+                to="/signin"
+            >
+                <i className="fas fa-sign-in-alt"></i>Sign in
             </NavLink>
-            <NavLink className={styles.NavLink} activeClassName={styles.Active} to="/signup">
+            <NavLink
+                to="/signup"
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+            >
                 <i className="fas fa-user-plus"></i>Sign up
             </NavLink>
         </>
@@ -27,20 +32,29 @@ const NavBar = () => {
         <Navbar className={styles.NavBar} expand="md" fixed="top">
             <Container>
                 <NavLink to="/">
-                    <Navbar.Brand><img src={logo} alt="logo" height="45" />FikaSnap</Navbar.Brand>
+                    <Navbar.Brand>
+                        <img src={logo} alt="logo" height="45" />
+                    </Navbar.Brand>
                 </NavLink>
+
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto text-left">
-                        <NavLink exact className={styles.NavLink} activeClassName={styles.Active} to="/">
+                        <NavLink
+                            exact
+                            className={styles.NavLink}
+                            activeClassName={styles.Active}
+                            to="/"
+                        >
                             <i className="fas fa-home"></i>Home
                         </NavLink>
+
                         {currentUser ? loggedInIcons : loggedOutIcons}
                     </Nav>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-    )
-}
+    );
+};
 
 export default NavBar;
