@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 import Form from "react-bootstrap/Form";
@@ -14,51 +14,45 @@ import { Link, useHistory } from "react-router-dom/cjs/react-router-dom";
 import styles from "../../../styles/SignInUpForm.module.css";
 import btnStyles from "../../../styles/Button.module.css";
 import appStyles from "../../../App.module.css";
-import { SetCurrentUserContext } from "../../../App";
+import { useSetCurrentUser } from "../../../contexts/CurrentUserContext";
 
 function SignInForm() {
-    const setCurrentUser = useContext(SetCurrentUserContext)
+    const setCurrentUser = useSetCurrentUser();
 
     const [signInData, setSignInData] = useState({
-        username: '',
-        password: ''
+        username: "",
+        password: "",
     });
-
     const { username, password } = signInData;
 
+    const [errors, setErrors] = useState({});
+
     const history = useHistory();
-
-    const [errors, setErrors] = useState({})
-
-    /** Handle changes in the form's inputs */
-    const handleChange = (event) => {
-        setSignInData({
-            ...signInData,
-            // create key/value pair with the field name, and
-            // the value entered by the user
-            [event.target.name]: event.target.value
-        });
-    };
-
     const handleSubmit = async (event) => {
         event.preventDefault();
+
         try {
-            const { data } = await axios.post('/dj-rest-auth/login/', signInData);
-            setCurrentUser(data.user)
-            history.push('/');
+            const { data } = await axios.post("/dj-rest-auth/login/", signInData);
+            setCurrentUser(data.user);
+            history.push("/");
         } catch (err) {
             setErrors(err.response?.data);
         }
-    }
+    };
+
+    const handleChange = (event) => {
+        setSignInData({
+            ...signInData,
+            [event.target.name]: event.target.value,
+        });
+    };
 
     return (
         <Row className={styles.Row}>
             <Col className="my-auto p-0 p-md-2" md={6}>
-                {/* Sign in form */}
                 <Container className={`${appStyles.Content} p-4 `}>
                     <h1 className={styles.Header}>sign in</h1>
                     <Form onSubmit={handleSubmit}>
-                        {/* username input */}
                         <Form.Group controlId="username">
                             <Form.Label className="d-none">Username</Form.Label>
                             <Form.Control
@@ -67,17 +61,15 @@ function SignInForm() {
                                 name="username"
                                 className={styles.Input}
                                 value={username}
-                                onChange={handleChange} />
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-
-                        {/* errors related to username field */}
-                        {errors.username?.map((message, index) => (
-                            <Alert variant="warning" key={index}>
+                        {errors.username?.map((message, idx) => (
+                            <Alert key={idx} variant="warning">
                                 {message}
                             </Alert>
                         ))}
 
-                        {/* password input */}
                         <Form.Group controlId="password">
                             <Form.Label className="d-none">Password</Form.Label>
                             <Form.Control
@@ -86,38 +78,33 @@ function SignInForm() {
                                 name="password"
                                 className={styles.Input}
                                 value={password}
-                                onChange={handleChange} />
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-                        {/* errors related to password field */}
-                        {errors.password?.map((message, index) => (
-                            <Alert variant="warning" key={index}>
+                        {errors.password?.map((message, idx) => (
+                            <Alert key={idx} variant="warning">
                                 {message}
                             </Alert>
                         ))}
-
-                        {/* sign in button */}
-                        <Button className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`} type="submit">
-                            Sign In
+                        <Button
+                            className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`}
+                            type="submit"
+                        >
+                            Sign in
                         </Button>
-
-                        {/* errors not related to username or password fields */}
-                        {errors.non_field_errors?.map((message, index) => (
-                            <Alert variant="warning" className="mt-3" key={index}>
+                        {errors.non_field_errors?.map((message, idx) => (
+                            <Alert key={idx} variant="warning" className="mt-3">
                                 {message}
                             </Alert>
                         ))}
                     </Form>
                 </Container>
-
-                {/* link to create an account */}
                 <Container className={`mt-3 ${appStyles.Content}`}>
                     <Link className={styles.Link} to="/signup">
                         Don't have an account? <span>Sign up now!</span>
                     </Link>
                 </Container>
             </Col>
-
-            {/* side image for medium / large screens */}
             <Col
                 md={6}
                 className={`my-auto d-none d-md-block p-2 ${styles.SignInCol}`}

@@ -10,28 +10,23 @@ import axios from "axios";
 
 const SignUpForm = () => {
     const [signUpData, setSignUpData] = useState({
-        username: '',
-        password1: '',
-        password2: ''
+        username: "",
+        password1: "",
+        password2: "",
     });
-
     const { username, password1, password2 } = signUpData;
 
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState({});
 
     const history = useHistory();
 
-    /** Handle changes in the form's inputs */
     const handleChange = (event) => {
         setSignUpData({
             ...signUpData,
-            // create key/value pair with the field name, and
-            // the value entered by the user
-            [event.target.name]: event.target.value
+            [event.target.name]: event.target.value,
         });
     };
 
-    /**Handle sign up form submit */
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -45,32 +40,28 @@ const SignUpForm = () => {
     return (
         <Row className={styles.Row}>
             <Col className="my-auto py-2 p-md-2" md={6}>
-
-                {/* Sign up form */}
                 <Container className={`${appStyles.Content} p-4 `}>
                     <h1 className={styles.Header}>sign up</h1>
 
                     <Form onSubmit={handleSubmit}>
-                        {/* Username input */}
-                        <Form.Group className="mb-3" controlId="username">
-                            <Form.Label className="d-none">Username</Form.Label>
+                        <Form.Group controlId="username">
+                            <Form.Label className="d-none">username</Form.Label>
                             <Form.Control
                                 className={styles.Input}
                                 type="text"
                                 placeholder="Username"
                                 name="username"
                                 value={username}
-                                onChange={handleChange} />
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-
-                        {/* display errors to user related to username */}
-                        {errors.username?.map((message, index) => (
-                            <Alert variant="warning" key={index}>
+                        {errors.username?.map((message, idx) => (
+                            <Alert variant="warning" key={idx}>
                                 {message}
-                            </Alert>))}
+                            </Alert>
+                        ))}
 
-                        {/* Password input */}
-                        <Form.Group className="mb-3" controlId="password1">
+                        <Form.Group controlId="password1">
                             <Form.Label className="d-none">Password</Form.Label>
                             <Form.Control
                                 className={styles.Input}
@@ -78,17 +69,16 @@ const SignUpForm = () => {
                                 placeholder="Password"
                                 name="password1"
                                 value={password1}
-                                onChange={handleChange} />
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-
-                        {/* display errors related to password */}
-                        {errors.password1?.map((message, index) => (
-                            <Alert variant="warning" key={index}>
+                        {errors.password1?.map((message, idx) => (
+                            <Alert key={idx} variant="warning">
                                 {message}
-                            </Alert>))}
+                            </Alert>
+                        ))}
 
-                        {/* Password confirmation input */}
-                        <Form.Group className="mb-3" controlId="password2">
+                        <Form.Group controlId="password2">
                             <Form.Label className="d-none">Confirm password</Form.Label>
                             <Form.Control
                                 className={styles.Input}
@@ -96,29 +86,29 @@ const SignUpForm = () => {
                                 placeholder="Confirm password"
                                 name="password2"
                                 value={password2}
-                                onChange={handleChange} />
+                                onChange={handleChange}
+                            />
                         </Form.Group>
-
-                        {/* display errors related to password confirmation */}
-                        {errors.password2?.map((message, index) => (
-                            <Alert variant="warning" key={index}>
+                        {errors.password2?.map((message, idx) => (
+                            <Alert key={idx} variant="warning">
                                 {message}
-                            </Alert>))}
+                            </Alert>
+                        ))}
 
-                        {/* Form Submit button */}
-                        <Button className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`} type="submit">
+                        <Button
+                            className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Bright}`}
+                            type="submit"
+                        >
                             Sign up
                         </Button>
-
-                        {/* display errors non related to input fields */}
-                        {errors.non_fields_errors?.map((message, index) => (
-                            <Alert variant="warning" className="mt-3" key={index}>
+                        {errors.non_field_errors?.map((message, idx) => (
+                            <Alert key={idx} variant="warning" className="mt-3">
                                 {message}
-                            </Alert>))}
+                            </Alert>
+                        ))}
                     </Form>
                 </Container>
 
-                {/* Sign in redirect link */}
                 <Container className={`mt-3 ${appStyles.Content}`}>
                     <Link className={styles.Link} to="/signin">
                         Already have an account? <span>Sign in</span>
@@ -129,12 +119,9 @@ const SignUpForm = () => {
                 md={6}
                 className={`my-auto d-none d-md-block p-2 ${styles.SignUpCol}`}
             >
-                {/* image displayed on large screens */}
                 <Image
                     className={`${appStyles.FillerImage}`}
-                    src={
-                        "https://codeinstitute.s3.amazonaws.com/AdvancedReact/hero2.jpg"
-                    }
+                    src={"https://codeinstitute.s3.amazonaws.com/AdvancedReact/hero2.jpg"}
                 />
             </Col>
         </Row>
