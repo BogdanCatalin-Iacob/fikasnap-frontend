@@ -1,4 +1,5 @@
 # FikaSnap - Frontend
+The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.herokuapp.com/)
 
 ## Table of contents
 *   [User Experience Design](#user-experience-design)
