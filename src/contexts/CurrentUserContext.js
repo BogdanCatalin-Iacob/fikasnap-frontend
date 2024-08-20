@@ -1,5 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import { axiosRequest, axiosResponse } from "../api/axiosDefaults";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
@@ -9,10 +11,11 @@ export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
 
 export const CurrentUserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
+    const history = useHistory();
 
     const handleMount = async () => {
         try {
-            await axios.get("/dj-rest-auth/user/").then(
+            await axiosResponse.get("/dj-rest-auth/user/").then(
                 (response) => setCurrentUser(response.data)
             );
         } catch (err) {
@@ -23,6 +26,56 @@ export const CurrentUserProvider = ({ children }) => {
     useEffect(() => {
         handleMount();
     }, []);
+
+    // attach the axios interceptors before the children props mount
+    // so the user can stay logged in for 24 hours
+    useMemo(() => {
+        axiosRequest.interceptors.request.use(
+            async (config) => {
+                try {
+                    // refresh token before sending request
+                    await axios.post('/dj-rest-auth/token/refresh/')
+                } catch (err){
+                    setCurrentUser((prevCurrentUser) => {
+                        if (prevCurrentUser) {
+                            history.push('/signin')
+                        }
+                        return null;
+                    })
+                    return config
+                }
+                return config
+            },
+            (err) => {
+                return Promise.reject(err);
+            }
+        );
+
+        axiosResponse.interceptors.response.use(
+            // no error return response
+            (response) => response,
+            async (err) => {
+                if (err.response?.status === 401){
+                    // refresh the token
+                    try {
+                        await axios.post('/dj-rest-auth/token/refresh/')
+                    } catch (err) {
+                        // if the user was sign in redirect to signin page
+                        setCurrentUser(prevCurrentUser => {
+                            if (prevCurrentUser){
+                                history.push('/signin')
+                            }
+                            return null;
+                        })
+                    }
+                    // exit the interceptor
+                    return axios(err.config)
+                }
+                // exit the interceptor if the error wasn't 401
+                return Promise.reject(err);
+            }
+        )
+    }, [history]);
 
     return (
         <CurrentUserContext.Provider value={currentUser}>
