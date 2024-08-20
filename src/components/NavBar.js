@@ -16,7 +16,46 @@ const NavBar = () => {
             <i className="far fa-plus-square">Add post</i>
         </NavLink>
     );
-    const loggedInIcons = <>{currentUser?.username}</>;
+    const loggedInIcons = (
+        <>
+            {/* feed link and icon */}
+            <NavLink
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+                to='/feed'
+            >
+                <i className="fas fa-stream">Feed</i>
+            </NavLink>
+
+            {/* liked link and icon */}
+            <NavLink
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+                to='/liked'
+            >
+                <i className="fas fa-heart">Liked</i>
+            </NavLink>
+
+            {/* sign out link and icon */}
+            <NavLink
+                className={styles.NavLink}
+                to='/'
+                onClick={() => {}}
+            >
+                <i className="fas fa-sign-out-alt">Sign out</i>
+            </NavLink>
+
+            {/* redirect user to own profile */}
+            <NavLink
+                className={styles.NavLink}
+                to={`/profiles/${currentUser?.profile_id}`}
+                onClick={() => {}}
+            >
+                <img src={currentUser?.profile_image}
+                    alt="user's profile" />
+            </NavLink>
+        </>
+    );
     const loggedOutIcons = (
         <>
             <NavLink
