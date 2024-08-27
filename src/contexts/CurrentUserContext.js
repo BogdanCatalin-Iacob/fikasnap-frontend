@@ -19,7 +19,7 @@ export const CurrentUserProvider = ({ children }) => {
                 (response) => setCurrentUser(response.data)
             );
         } catch (err) {
-            console.log(err);
+            console.log('An error occurred, status: ', err.response.status);
         }
     };
 
@@ -27,6 +27,9 @@ export const CurrentUserProvider = ({ children }) => {
         handleMount();
     }, []);
 
+    // Here we are catching all incoming and outgoing requests
+    // to check if the token is expired and if so, we refresh it.
+    // and if the refresh token is expired, we redirect the user to the signin page
     // attach the axios interceptors before the children props mount
     // so the user can stay logged in for 24 hours
     useMemo(() => {
@@ -41,10 +44,10 @@ export const CurrentUserProvider = ({ children }) => {
                             history.push('/signin')
                         }
                         return null;
-                    })
-                    return config
+                    });
+                    return config;
                 }
-                return config
+                return config;
             },
             (err) => {
                 return Promise.reject(err);
