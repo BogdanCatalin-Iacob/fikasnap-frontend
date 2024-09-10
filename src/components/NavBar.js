@@ -24,7 +24,7 @@ const NavBar = () => {
                 activeClassName={styles.Active}
                 to='/feed'
             >
-                <i className="fas fa-stream">Feed</i>
+                <i className="fas fa-stream"></i>Feed
             </NavLink>
 
             {/* liked link and icon */}
@@ -33,7 +33,7 @@ const NavBar = () => {
                 activeClassName={styles.Active}
                 to='/liked'
             >
-                <i className="fas fa-heart">Liked</i>
+                <i className="fas fa-heart"></i>Liked
             </NavLink>
 
             {/* sign out link and icon */}
@@ -42,7 +42,7 @@ const NavBar = () => {
                 to='/'
                 onClick={() => {}}
             >
-                <i className="fas fa-sign-out-alt">Sign out</i>
+                <i className="fas fa-sign-out-alt"></i>Sign out
             </NavLink>
 
             {/* redirect user to own profile */}
