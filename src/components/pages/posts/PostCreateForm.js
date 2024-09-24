@@ -32,6 +32,18 @@ function PostCreateForm() {
         });
     };
 
+    const handleChangeImage = (event) => {
+        // clear the previous chosen file
+        URL.revokeObjectURL(image);
+        if(event.target.files.length) {
+            setPostData({
+                ...postData,
+                // create a url for the file chosen by user
+                image: URL.createObjectURL(event.target.files[0]);
+            })
+        }
+    }
+
     const textFields = (
         <div className="text-center">
             <Form.Group>
@@ -81,6 +93,10 @@ function PostCreateForm() {
                             >
                                 <Asset src={Upload} message="Click or tap to upload an image" />
                             </Form.Label>
+                            <Form.File
+                                id="image-upload"
+                                accept="image/*"
+                                onChange={handleChangeImage} />
 
                         </Form.Group>
                         <div className="d-md-none">{textFields}</div>
