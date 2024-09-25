@@ -12,7 +12,7 @@ import styles from "../../../styles/PostCreateEditForm.module.css";
 import appStyles from "../../../App.module.css";
 import btnStyles from "../../../styles/Button.module.css";
 import Asset from "../../Assets";
-import { Image } from "react-bootstrap";
+import { Alert, Image } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import axios from "axios";
 import { axiosRequest } from "../../../api/axiosDefaults";
@@ -72,6 +72,7 @@ function PostCreateForm() {
 
     const textFields = (
         <div className="text-center">
+            {/* post title input */}
             <Form.Group>
                 <Form.Label>Title</Form.Label>
                 <Form.Control
@@ -81,6 +82,14 @@ function PostCreateForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
+            {/* post title errors */}
+            {errors?.title?.map((message, index) => (
+                <Alert variant="warning" key={index}>
+                    {message}
+                </Alert>
+            ))}
+
+            {/* post content input */}
             <Form.Group>
                 <Form.Label>Content</Form.Label>
                 <Form.Control
@@ -91,6 +100,12 @@ function PostCreateForm() {
                     onChange={handleChange}
                 />
             </Form.Group>
+            {/* post content input errors */}
+            {errors?.content?.map((message, index) => (
+                <Alert variant="warning" key={index}>
+                    {message}
+                </Alert>
+            ))}
 
             <Button
                 className={`${btnStyles.Button} ${btnStyles.Blue}`}
@@ -146,6 +161,12 @@ function PostCreateForm() {
                                 ref={imageInput}
                             />
                         </Form.Group>
+                        {/* post image input errors */}
+                        {errors?.image?.map((message, index) => (
+                            <Alert variant="warning" key={index}>
+                                {message}
+                            </Alert>
+                        ))}
                         <div className="d-md-none">{textFields}</div>
                     </Container>
                 </Col>
