@@ -14,7 +14,6 @@ import btnStyles from "../../../styles/Button.module.css";
 import Asset from "../../Assets";
 import { Alert, Image } from "react-bootstrap";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-import axios from "axios";
 import { axiosRequest } from "../../../api/axiosDefaults";
 
 function PostCreateForm() {
