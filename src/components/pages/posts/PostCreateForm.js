@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -13,6 +13,9 @@ import appStyles from "../../../App.module.css";
 import btnStyles from "../../../styles/Button.module.css";
 import Asset from "../../Assets";
 import { Image } from "react-bootstrap";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import axios from "axios";
+import { axiosRequest } from "../../../api/axiosDefaults";
 
 function PostCreateForm() {
     const [errors, setErrors] = useState({});
@@ -23,6 +26,9 @@ function PostCreateForm() {
         image: "",
     });
     const { title, content, image } = postData;
+
+    const imageInput = useRef(null);
+    const history = useHistory();
 
     const handleChange = (event) => {
         setPostData({
@@ -42,6 +48,27 @@ function PostCreateForm() {
             });
         }
     };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+
+        formData.append('title', title);
+        formData.append('content', content)
+        formData.append('image', imageInput.current.files[0])
+
+        // refresh user access token
+        try {
+            const { data } = await axiosRequest.post('/posts/', formData);
+            history.push(`/posts/${data.id}`);
+        } catch (err){
+            console.log(err);
+            // if 401 user will be redirected by axiosRequest interceptor logic
+            if(err.response?.status !== 401) {
+                setErrors(err.response?.data);
+            }
+        }
+    }
 
     const textFields = (
         <div className="text-center">
@@ -78,7 +105,7 @@ function PostCreateForm() {
     );
 
     return (
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <Row>
                 <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
                     <Container
@@ -116,6 +143,7 @@ function PostCreateForm() {
                                 id="image-upload"
                                 accept="image/*"
                                 onChange={handleChangeImage}
+                                ref={imageInput}
                             />
                         </Form.Group>
                         <div className="d-md-none">{textFields}</div>
