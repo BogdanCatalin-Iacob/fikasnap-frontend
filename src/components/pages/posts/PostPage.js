@@ -1,12 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 
 import appStyles from '../../../App.module.css';
+import { useParams } from "react-router-dom/cjs/react-router-dom";
+import { axiosRequest } from "../../../api/axiosDefaults";
 
 function PostPage() {
+    // fetch the param set in the Route
+    const { id } = useParams();
 
+    // single post returns an object
+    // multiple post returns array of objects
+    const [post, setPost] = useState({results: []})
+
+    useEffect(() => {
+        const handleMount = async () => {
+            try {
+                // destructure data from the request and rename it to post
+                const [{data: post}] = await Promise.all([
+                    axiosRequest.get(`/posts/${id}`),
+                ])
+                setPost({results: [post]})
+                console.log(post)
+            } catch(err) {
+                console.log(err)
+            }
+        };
+
+        // run every time when post id changes
+        handleMount();
+    }, [id]);
 
     return (
         <Row className="h-100">
