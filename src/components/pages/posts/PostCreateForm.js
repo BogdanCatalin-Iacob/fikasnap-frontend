@@ -56,7 +56,8 @@ function PostCreateForm() {
         formData.append('content', content)
         formData.append('image', imageInput.current.files[0])
 
-        // refresh user access token
+        //sending image and text requires to
+        //refresh user access token
         try {
             const { data } = await axiosRequest.post('/posts/', formData);
             history.push(`/posts/${data.id}`);
@@ -106,9 +107,10 @@ function PostCreateForm() {
                 </Alert>
             ))}
 
+            {/* redirect to the last page */}
             <Button
                 className={`${btnStyles.Button} ${btnStyles.Blue}`}
-                onClick={() => { }}
+                onClick={() => history.goBack()}
             >
                 cancel
             </Button>
