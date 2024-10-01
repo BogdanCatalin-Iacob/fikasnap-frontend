@@ -36,8 +36,15 @@ function PostsPage({ message, filter = "" }) {
         }
         // hasLoade to false will display loading spinner
         setHasLoaded(false)
-        fetchPosts()
-    }, [filter, query, pathname])
+
+        // wait 1s after the key stroke before making the request to api
+        const timer = setTimeout(() => {
+            fetchPosts();
+        },1000);
+        return () => {
+            clearTimeout(timer);
+        }
+    }, [filter, query, pathname]);
 
     return (
         <Row className="h-100">
