@@ -13,6 +13,8 @@ import Post from "./Post";
 
 import NoResults from '../../../assets/no-results.png'
 import Asset from "../../Assets";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { fetchMoreData } from "../../../utils/utils";
 
 function PostsPage({ message, filter = "" }) {
     const [posts, setPosts] = useState({ results: [] });
@@ -22,6 +24,7 @@ function PostsPage({ message, filter = "" }) {
     const [hasLoaded, setHasLoaded] = useState(false);
     const { pathname } = useLocation();
 
+    // search bar state
     const [query, setQuery] = useState("");
 
     useEffect(() => {
@@ -40,7 +43,7 @@ function PostsPage({ message, filter = "" }) {
         // wait 1s after the key stroke before making the request to api
         const timer = setTimeout(() => {
             fetchPosts();
-        },1000);
+        }, 1000);
         return () => {
             clearTimeout(timer);
         }
@@ -66,10 +69,19 @@ function PostsPage({ message, filter = "" }) {
 
                 {hasLoaded ? (
                     <>
-                        {posts.results.length ?
-                            posts.results.map((post) => (
-                                <Post key={post.id} {...post} setPosts={setPosts} />
-                            )) :
+                        {posts.results.length ? (
+                            <InfiniteScroll
+                                children={
+                                    posts.results.map((post) => (
+                                        <Post key={post.id} {...post} setPosts={setPosts} />
+                                    ))
+                                }
+                                dataLength={posts.results.length}
+                                loader={<Asset spinner />}
+                                hasMore={!!posts.next}
+                                next={() => fetchMoreData(posts, setPosts)}
+                            />
+                        ) :
                             <Container className={appStyles.Content}>
                                 <Asset src={NoResults} message={message} />
                             </Container>
