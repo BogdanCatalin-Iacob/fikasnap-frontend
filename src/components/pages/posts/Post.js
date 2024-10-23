@@ -4,7 +4,7 @@ import { useCurrentUser } from "../../../contexts/CurrentUserContext";
 import { Card, Media, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import Avatar from "../../Avatar";
-import { axiosRequest } from "../../../api/axiosDefaults";
+import { axiosRequest, axiosResponse } from "../../../api/axiosDefaults";
 import { MoreDropdown } from "../../MoreDropdown";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
@@ -32,7 +32,16 @@ const Post = (props) => {
 
     const handleEdit = () => {
         history.push(`/posts/${id}/edit`)
-    }
+    };
+
+    const handleDelete = async () => {
+        try {
+            await axiosResponse.delete(`/posts/${id}/`)
+            history.goBack();
+        }catch (err) {
+            console.log(err);
+        }
+    };
 
     const handleLike = async () => {
         try {
@@ -77,7 +86,12 @@ const Post = (props) => {
                     </Link>
                     <div className="d-flex align-items-center">
                         <span>{updated_at}</span>
-                        {is_owner && postPage && <MoreDropdown handleEdit={handleEdit} />}
+                        {is_owner && postPage && (
+                            <MoreDropdown
+                                handleEdit={handleEdit}
+                                handleDelete={handleDelete}
+                            />
+                        )}
                     </div>
                 </Media>
             </Card.Body>
