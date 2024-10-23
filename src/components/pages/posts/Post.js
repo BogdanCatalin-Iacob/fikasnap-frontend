@@ -5,6 +5,8 @@ import { Card, Media, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import Avatar from "../../Avatar";
 import { axiosRequest } from "../../../api/axiosDefaults";
+import { MoreDropdown } from "../../MoreDropdown";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const Post = (props) => {
 
@@ -26,18 +28,23 @@ const Post = (props) => {
 
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
+    const history = useHistory();
+
+    const handleEdit = () => {
+        history.push(`/posts/${id}/edit`)
+    }
 
     const handleLike = async () => {
         try {
-            const {data} = await axiosRequest.post('/likes/', {post:id})
+            const { data } = await axiosRequest.post('/likes/', { post: id })
             // update post data
             setPosts((prevPosts) => ({
                 ...prevPosts,
                 results: prevPosts.results.map((post) => {
-                    return post.id === id ? 
-                        {...post, likes_count: post.likes_count + 1, like_id: data.id}
+                    return post.id === id ?
+                        { ...post, likes_count: post.likes_count + 1, like_id: data.id }
                         : post;
-                    }),
+                }),
             }));
         } catch (err) {
             console.log(err);
@@ -50,8 +57,8 @@ const Post = (props) => {
             setPosts((prevPosts) => ({
                 ...prevPosts,
                 results: prevPosts.results.map((post) => {
-                    return post.id === id ? 
-                        {...post, likes_count: post.likes_count - 1, like_id: null}
+                    return post.id === id ?
+                        { ...post, likes_count: post.likes_count - 1, like_id: null }
                         : post;
                 }),
             }));
@@ -60,54 +67,56 @@ const Post = (props) => {
         }
     };
 
-    return <Card className={styles.Post}>
-        <Card.Body>
-            <Media className="align-items-center justify-content-between">
-                <Link to={`/profiles/${profile_id}`} >
-                    <Avatar src={profile_image} height={55} />
-                    {owner}
-                </Link>
-                <div className="d-flex align-items-center">
-                    <span>{updated_at}</span>
-                    {is_owner && postPage && "..."}
+    return (
+        <Card className={styles.Post}>
+            <Card.Body>
+                <Media className="align-items-center justify-content-between">
+                    <Link to={`/profiles/${profile_id}`} >
+                        <Avatar src={profile_image} height={55} />
+                        {owner}
+                    </Link>
+                    <div className="d-flex align-items-center">
+                        <span>{updated_at}</span>
+                        {is_owner && postPage && <MoreDropdown handleEdit={handleEdit} />}
+                    </div>
+                </Media>
+            </Card.Body>
+            <Link to={`/posts/${id}`}>
+                <Card.Img src={image} alt={title} />
+            </Link>
+            <Card.Body>
+                {title && <Card.Title className="text-center">{title}</Card.Title>}
+                {content && <Card.Text>{content}</Card.Text>}
+                <div className={styles.PostBar}>
+                    {is_owner ? (
+                        <OverlayTrigger placement="top" overlay={<Tooltip>You can't like your own post!</Tooltip>}>
+                            <i className="far fa-heart" />
+                        </OverlayTrigger>
+                    ) : like_id ? (
+                        <span onClick={handleUnlike}>
+                            <i className={`fas fa-heart ${styles.Heart}`} />
+                        </span>
+                    ) : currentUser ? (
+                        <span onClick={handleLike}>
+                            <i className={`far fa-heart ${styles.HeartOutline}`} />
+                        </span>
+                    ) : (
+                        <OverlayTrigger
+                            placement="top"
+                            overlay={<Tooltip>Log in to like posts!</Tooltip>}
+                        >
+                            <i className="far fa-heart" />
+                        </OverlayTrigger>
+                    )}
+                    {likes_count}
+                    <Link to={`/posts/${id}`}>
+                        <i className="far fa-comments" />
+                        {comments_count}
+                    </Link>
                 </div>
-            </Media>
-        </Card.Body>
-        <Link to={`/posts/${id}`}>
-            <Card.Img src={image} alt={title} />
-        </Link>
-        <Card.Body>
-            {title && <Card.Title className="text-center">{title}</Card.Title>}
-            {content && <Card.Text>{content}</Card.Text>}
-            <div className={styles.PostBar}>
-                {is_owner ? (
-                    <OverlayTrigger placement="top" overlay={<Tooltip>You can't like your own post!</Tooltip>}>
-                        <i className="far fa-heart" />
-                    </OverlayTrigger>
-                ) : like_id ? (
-                    <span onClick={handleUnlike}>
-                        <i className={`fas fa-heart ${styles.Heart}`} />
-                    </span>
-                ) : currentUser ? (
-                    <span onClick={handleLike}>
-                        <i className={`far fa-heart ${styles.HeartOutline}`} />
-                    </span>
-                ) : (
-                    <OverlayTrigger
-                        placement="top"
-                        overlay={<Tooltip>Log in to like posts!</Tooltip>}
-                    >
-                        <i className="far fa-heart" />
-                    </OverlayTrigger>
-                )}
-                {likes_count}
-                <Link to={`/posts/${id}`}>
-                    <i className="far fa-comments" />
-                    {comments_count}
-                </Link>
-            </div>
-        </Card.Body>
-    </Card>
+            </Card.Body>
+        </Card>
+    )
 }
 
 export default Post;
