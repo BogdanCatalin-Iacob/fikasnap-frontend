@@ -26,11 +26,12 @@ function PostPage() {
         const handleMount = async () => {
             try {
                 // destructure data from the request and rename it to post
-                const [{ data: post }] = await Promise.all([
+                const [{ data: post }, { data: comments }] = await Promise.all([
                     axiosRequest.get(`/posts/${id}`),
+                    axiosRequest.get(`/comments/?post=${id}`)
                 ])
-                setPost({ results: [post] })
-                console.log(post)
+                setPost({ results: [post] });
+                setComments(comments)
             } catch (err) {
                 console.log(err)
             }
@@ -58,6 +59,17 @@ function PostPage() {
                     ) : comments.results.length ? (
                         "Comments"
                     ) : null}
+                    {comments.results.length ? (
+                        comments.results.map(comment => (
+                            <p key={comment.id}>
+                                {comment.owner}: {comment.content}
+                            </p>
+                        ))
+                    ) : currentUser ? (
+                        <span>No comments yet, be the first to comment!</span>
+                    ) : (
+                        <span>No comments... yet!</span>
+                    )}
                 </Container>
             </Col>
             <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
