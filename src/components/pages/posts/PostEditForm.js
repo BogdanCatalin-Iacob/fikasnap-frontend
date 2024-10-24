@@ -75,7 +75,7 @@ function PostEditForm() {
         //sending image and text requires to
         //refresh user access token
         try {
-            await axiosRequest.post(`/posts/${id}/`, formData);
+            await axiosRequest.put(`/posts/${id}/`, formData);
             history.push(`/posts/${id}`);
         } catch (err) {
             console.log(err);
