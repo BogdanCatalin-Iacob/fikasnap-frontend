@@ -7,6 +7,8 @@ import appStyles from '../../../App.module.css';
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import { axiosRequest } from "../../../api/axiosDefaults";
 import Post from "./Post";
+import CommentCreateForm from "../comments/CommentCreateForm";
+import { useCurrentUser } from "../../../contexts/CurrentUserContext";
 
 function PostPage() {
     // fetch the param set in the Route
@@ -14,18 +16,22 @@ function PostPage() {
 
     // single post returns an object
     // multiple post returns array of objects
-    const [post, setPost] = useState({results: []})
+    const [post, setPost] = useState({ results: [] })
+
+    const currentUser = useCurrentUser();
+    const profile_image = currentUser?.profile_image;
+    const [comments, setComments] = useState({ results: [] });
 
     useEffect(() => {
         const handleMount = async () => {
             try {
                 // destructure data from the request and rename it to post
-                const [{data: post}] = await Promise.all([
+                const [{ data: post }] = await Promise.all([
                     axiosRequest.get(`/posts/${id}`),
                 ])
-                setPost({results: [post]})
+                setPost({ results: [post] })
                 console.log(post)
-            } catch(err) {
+            } catch (err) {
                 console.log(err)
             }
         };
@@ -41,7 +47,17 @@ function PostPage() {
                 {/* pass post details */}
                 <Post {...post.results[0]} setPosts={setPost} postPage />
                 <Container className={appStyles.Content}>
-                    Comments
+                    {currentUser ? (
+                        <CommentCreateForm
+                            profile_id={currentUser.profile_id}
+                            profileImage={profile_image}
+                            post={id}
+                            setPost={setPost}
+                            setComments={setComments}
+                        />
+                    ) : comments.results.length ? (
+                        "Comments"
+                    ) : null}
                 </Container>
             </Col>
             <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
