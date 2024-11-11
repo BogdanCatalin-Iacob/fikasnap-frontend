@@ -4,6 +4,7 @@ import appStyles from '../../../App.module.css'
 import { axiosRequest } from '../../../api/axiosDefaults';
 import { useCurrentUser } from '../../../contexts/CurrentUserContext';
 import Asset from '../../Assets';
+import Profile from './Profile';
 
 /**
  * Functional component representing a section displaying popular profiles based on followers count.
@@ -50,7 +51,7 @@ const PopularProfiles = ({ mobile }) => {
                     {mobile ? (
                         <div className='d-flex justify-content-around'>
                             {popularProfiles.results.slice(0, 4).map(profile => (
-                                <p key={profile.id}>{profile.owner}</p>
+                                <Profile key={profile.id} profile={profile} mobile />
                             ))}
                         </div>
                     ) : (
