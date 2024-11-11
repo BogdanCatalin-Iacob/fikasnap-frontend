@@ -1,46 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Container } from 'react-bootstrap'
 import appStyles from '../../../App.module.css'
-import { axiosRequest } from '../../../api/axiosDefaults';
-import { useCurrentUser } from '../../../contexts/CurrentUserContext';
 import Asset from '../../Assets';
 import Profile from './Profile';
+import { useProfileData } from '../../../contexts/ProfileDataContext';
 
 /**
- * Functional component representing a section displaying popular profiles based on followers count.
- * Retrieves and displays a list of popular profiles ordered by followers count.
- * Utilizes internal modules for state management and API requests.
- * @returns {JSX.Element} A container component displaying the most followed profiles.
+ * Renders a list of popular profiles within a responsive container.
+ * 
+ * @param {Object} mobile - Component properties.
+ * @param {boolean} mobile - Flag indicating if the component is rendered on a mobile device.
+ * 
+ * @returns {JSX.Element} A container displaying the most followed profiles.
+ * If on a mobile device, only the top 4 profiles are shown in a flexbox layout.
+ * Otherwise, all profiles are listed with their owner's name.
+ * Displays a loading spinner if no profiles are available.
  */
 const PopularProfiles = ({ mobile }) => {
-    const [profileData, setProfileData] = useState({
-
-        // use the pageProfile later!
-        pageProfile: { results: [] },
-        popularProfiles: { results: [] }
-    });
-
-    const { popularProfiles } = profileData;
-    const currentUser = useCurrentUser();
-
-
-    useEffect(() => {
-        const handleMount = async () => {
-            try {
-                const { data } = await axiosRequest.get(
-                    `/profiles/?ordering=-followers_count`
-                );
-                setProfileData((prevState) => ({
-                    ...prevState,
-                    popularProfiles: data
-                }));
-            } catch (err) {
-                console.log(err);
-            }
-        }
-
-        handleMount();
-    }, [currentUser]);
+    const { popularProfiles } = useProfileData();
 
     return (
         <Container className={`${appStyles.Content} ${mobile && 'd-lg-none text-center mb-3'}`}>
