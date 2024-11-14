@@ -10,15 +10,32 @@ import styles from "../../../styles/ProfilePage.module.css";
 import appStyles from "../../../App.module.css";
 import btnStyles from "../../../styles/Button.module.css";
 
+import NoResults from "../../../assets/no-results.png"
+
 import PopularProfiles from "./PopularProfiles";
 import { useCurrentUser } from "../../../contexts/CurrentUserContext";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 import { axiosRequest } from "../../../api/axiosDefaults";
 import { useProfileData, useSetProfileData } from "../../../contexts/ProfileDataContext";
 import { Button, Image } from "react-bootstrap";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Post from "../posts/Post";
+import { fetchMoreData } from "../../../utils/utils";
 
+/**
+ * ProfilePage component displays a user's profile information and their posts.
+ * 
+ * It fetches and displays the profile details and posts of a user based on the
+ * profile ID from the URL parameters. The component uses various hooks to manage
+ * state and side effects, including fetching data from the server and updating
+ * the UI accordingly. It also includes functionality for following/unfollowing
+ * the profile owner and displays a list of popular profiles.
+ * 
+ * @returns {JSX.Element} A React component that renders the profile page layout.
+ */
 function ProfilePage() {
     const [hasLoaded, setHasLoaded] = useState(false);
+    const [profilePosts, setProfilePosts] = useState({ results: [] });
     const currentUser = useCurrentUser();
     const { id } = useParams();
     const setProfileData = useSetProfileData();
@@ -29,13 +46,16 @@ function ProfilePage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [{ data: pageProfile }] = await Promise.all([
-                    axiosRequest.get(`/profiles/${id}/`)
+                const [{ data: pageProfile }, { data: profilePosts }] = await Promise.all([
+                    axiosRequest.get(`/profiles/${id}/`),
+                    axiosRequest.get(`/posts/?owner__profile=${id}`)
                 ])
                 setProfileData(prevState => ({
                     ...prevState,
                     pageProfile: { results: [pageProfile] }
                 }))
+
+                setProfilePosts(profilePosts);
                 setHasLoaded(true);
             } catch (err) {
                 console.log(err)
@@ -95,8 +115,24 @@ function ProfilePage() {
     const mainProfilePosts = (
         <>
             <hr />
-            <p className="text-center">Profile owner's posts</p>
+            <p className="text-center">{profile?.owner}'s posts</p>
             <hr />
+            {profilePosts.results.length ? (
+                <InfiniteScroll
+                    children={profilePosts.results.map((post) => (
+                        <Post key={post.id} {...post} setPost={setProfilePosts} />
+                    ))}
+                    dataLength={profilePosts.results.length}
+                    loader={<Asset spinner />}
+                    hasMore={!!profilePosts.results.next}
+                    next={() => fetchMoreData(profilePosts, setProfilePosts)}
+                />
+            ) : (
+                <Asset
+                    src={NoResults}
+                    message={`No results found, ${profile?.owner} hasn't posted yet.`}
+                />
+            )}
         </>
     );
 
