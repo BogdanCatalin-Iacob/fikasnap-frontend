@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { axiosRequest } from "../api/axiosDefaults";
+import { axiosRequest, axiosResponse } from "../api/axiosDefaults";
 import { useCurrentUser } from "./CurrentUserContext";
+import { followHelper } from "../utils/utils";
 
 export const ProfileDataContext = createContext();
 export const SetProfileDataContext = createContext();
@@ -30,6 +31,46 @@ export const ProfileDataProvider = ({ children }) => {
 
     const currentUser = useCurrentUser();
 
+    const handleFollow = async (clickedProfile) => {
+        try {
+            const { data } = await axiosResponse.post('/followers/', {
+                followed: clickedProfile.id
+            });
+
+            setProfileData((prevState) => ({
+                ...prevState,
+                pageProfile: {
+                    results: prevState.pageProfile.results.map((profile) => {
+                        return profile.id === clickedProfile.id
+                            ? // This is the profile I clicked on,
+                            // update its followers count and set itsfollowing id
+                            {
+                                ...profile,
+                                followers_count: profile.followers_count + 1,
+                                following_id: data.id
+                            }
+                            : profile.is_owner
+                                ? // This is the profile of the logged in user
+                                // update its following count
+                                {
+                                    ...profile,
+                                    following_count: profile.following_count + 1
+                                }
+                                : // This is noyt the profile the user clicked on or the profile
+                                // the user owns, so just return it unchanged
+                                profile;
+                    })
+                },
+                popularProfiles: {
+                    ...prevState.popularProfiles,
+                    results: prevState.popularProfiles.results.map((profile) => followHelper(profile, clickedProfile, data.id))
+                }
+            }))
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     useEffect(() => {
         const handleMount = async () => {
             try {
@@ -50,7 +91,7 @@ export const ProfileDataProvider = ({ children }) => {
 
     return (
         <ProfileDataContext.Provider value={profileData}>
-            <SetProfileDataContext.Provider value={setProfileData}>
+            <SetProfileDataContext.Provider value={{ setProfileData, handleFollow }}>
                 {children}
             </SetProfileDataContext.Provider>
         </ProfileDataContext.Provider>
