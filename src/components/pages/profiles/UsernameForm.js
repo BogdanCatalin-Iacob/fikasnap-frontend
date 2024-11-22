@@ -13,7 +13,6 @@ import { useCurrentUser, useSetCurrentUser } from "../../../contexts/CurrentUser
 
 import btnStyles from "../../../styles/Button.module.css";
 import appStyles from "../../../App.module.css";
-import { FormGroup } from "react-bootstrap";
 
 const UsernameForm = () => {
     const [username, setUsername] = useState("");
