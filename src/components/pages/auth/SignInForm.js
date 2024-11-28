@@ -15,9 +15,22 @@ import styles from "../../../styles/SignInUpForm.module.css";
 import btnStyles from "../../../styles/Button.module.css";
 import appStyles from "../../../App.module.css";
 import { useSetCurrentUser } from "../../../contexts/CurrentUserContext";
+import { useRedirect } from "../../../hooks/useRedirect";
 
+/**
+ * SignInForm component renders a sign-in form for user authentication.
+ * 
+ * This component manages the state of the sign-in form, handles form submission,
+ * and displays any validation errors. It uses the `useSetCurrentUser` hook to
+ * update the current user context upon successful login and `useRedirect` to
+ * redirect authenticated users. The form includes fields for username and password,
+ * and provides links for navigation to the sign-up page.
+ * 
+ * @returns {JSX.Element} The rendered sign-in form component.
+ */
 function SignInForm() {
     const setCurrentUser = useSetCurrentUser();
+    useRedirect('loggedIn');
 
     const [signInData, setSignInData] = useState({
         username: "",
@@ -34,7 +47,7 @@ function SignInForm() {
         try {
             const {data} = await axios.post('/dj-rest-auth/login/', signInData);
             setCurrentUser(data.user);
-            history.push('/');
+            history.goBack();
         } catch (err) {
             setErrors(err.response?.data);
         }

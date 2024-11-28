@@ -7,8 +7,21 @@ import appStyles from "../../../App.module.css";
 
 import { Form, Button, Image, Col, Row, Container, Alert } from "react-bootstrap";
 import axios from "axios";
+import { useRedirect } from "../../../hooks/useRedirect";
 
+/**
+ * SignUpForm component renders a user registration form.
+ * 
+ * This component uses the `useRedirect` hook to redirect logged-in users.
+ * It manages form state and handles user input for username, password, and password confirmation.
+ * On form submission, it attempts to register the user via an API call.
+ * If registration is successful, it redirects to the sign-in page.
+ * Displays validation errors using Bootstrap Alerts if the registration fails.
+ * 
+ * @returns {JSX.Element} The rendered sign-up form component.
+ */
 const SignUpForm = () => {
+    useRedirect('loggedIn')
     const [signUpData, setSignUpData] = useState({
         username: "",
         password1: "",
