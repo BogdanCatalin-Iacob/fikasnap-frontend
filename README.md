@@ -5,6 +5,7 @@ The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.h
 *   [User Experience Design](#user-experience-design)
     *   [User Stories](#user-stories)
 *   [Technologies](#technologies)
+*   [Testing](#testing)
     
 ## User experience design
 *   ### User stories
@@ -53,3 +54,11 @@ The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.h
 *   ReactJs
 *   React-Bootstrap
 *   Axios
+
+## Testing
+Use Mock Service Worker for testing React components.
+
+1. Create a server instance with all the handlers defined in handlers.js
+2. Start the server before all test are run
+3. Reset the handlers after each test
+4. Close the server after all the test are run
