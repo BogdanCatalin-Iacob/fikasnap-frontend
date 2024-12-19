@@ -1,5 +1,5 @@
 import React from "react";
-import { Spinner } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 import styles from "../styles/Asset.module.css";
 
 /**Will render any combination of loader
