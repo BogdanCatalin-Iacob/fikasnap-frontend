@@ -14,6 +14,13 @@ import { useCurrentUser } from "../../../contexts/CurrentUserContext";
 import btnStyles from "./../../../styles/Button.module.css";
 import appStyles from "./../../../App.module.css";
 
+/**
+ * UserPasswordForm is a React component that allows users to change their password.
+ * It uses React Bootstrap for UI components and handles form submission to update
+ * the user's password via an API call. The component ensures that only the profile
+ * owner can access the form by checking the current user's profile ID against the
+ * URL parameter. It also manages form state and error handling for password inputs.
+ */
 const UserPasswordForm = () => {
     const history = useHistory();
     const { id } = useParams();
