@@ -4,9 +4,10 @@ The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.h
 ## Table of contents
 *   [User Experience Design](#user-experience-design)
     *   [User Stories](#user-stories)
-*   [Technologies](#technologies)
+*   [Technologies](#technologies-and-libraries)
 *   [Testing](#testing)
     *   [Test Types](#test-types)
+* [Debug](#debug)
     
 ## User experience design
 *   ### User stories
@@ -50,11 +51,13 @@ The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.h
     | 29 | Profile Owner | Logged in user can edit own profile | Change profile picture and bio |
     | 30 | Profile Owner | Logged in user can update username and password | Change my display name and keep my profile secure |
 
-## Technologies
+## Technologies and libraries
 *   Javascript
 *   ReactJs
 *   React-Bootstrap
 *   Axios
+*   jwt-decode
+
 
 ## Testing
 Use Mock Service Worker for testing React components.
@@ -69,3 +72,12 @@ Use Mock Service Worker for testing React components.
 *   Tests to check that certain elements such as links are rendered on mount within the component
 *   Tests to check that certain elements such as links are rendered as a result of an asynchronous request after mounting
 *   Tests that simulate user interactions such as clicks
+
+## Debug
+*   Not authenticated user create unnecessary requests for token refresh to api each time when app is interacted with.
+    Token refresh fix:
+    *   Store the logged in users refresh token timestamp in localStorage
+    *   Make attempts to refresh the acces token only if the timestamp exists
+    *   Remove the timestamp when: 
+        *   User's refresh token expires
+        *   User logs out
