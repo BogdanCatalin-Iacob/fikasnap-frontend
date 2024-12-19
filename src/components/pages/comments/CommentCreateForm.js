@@ -8,6 +8,21 @@ import styles from "../../../styles/CommentCreateEditForm.module.css";
 import Avatar from "../../../components/Avatar";
 import { axiosResponse } from "../../../api/axiosDefaults";
 
+/**
+ * Renders a form for creating a new comment on a post.
+ * 
+ * @param {Object} props - The properties passed to the component.
+ * @param {Object} props.post - The post object to which the comment is related.
+ * @param {Function} props.setPost - Function to update the post state.
+ * @param {Function} props.setComments - Function to update the comments state.
+ * @param {string} props.profileImage - URL of the profile image of the user.
+ * @param {number} props.profile_id - ID of the user's profile.
+ * 
+ * @returns {JSX.Element} A form component with a textarea for comment input and a submit button.
+ * 
+ * The form allows users to input and submit comments. Upon submission, it sends a POST request
+ * to create a new comment, updates the comments list, and increments the comment count of the post.
+ */
 function CommentCreateForm(props) {
     const { post, setPost, setComments, profileImage, profile_id } = props;
     const [content, setContent] = useState("");
