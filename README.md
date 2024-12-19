@@ -6,6 +6,7 @@ The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.h
     *   [User Stories](#user-stories)
 *   [Technologies](#technologies)
 *   [Testing](#testing)
+    *   [Test Types](#test-types)
     
 ## User experience design
 *   ### User stories
@@ -62,3 +63,9 @@ Use Mock Service Worker for testing React components.
 2. Start the server before all test are run
 3. Reset the handlers after each test
 4. Close the server after all the test are run
+
+### Test types
+*   Tests to check that a component can be rendered without any errors
+*   Tests to check that certain elements such as links are rendered on mount within the component
+*   Tests to check that certain elements such as links are rendered as a result of an asynchronous request after mounting
+*   Tests that simulate user interactions such as clicks
