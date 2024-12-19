@@ -72,7 +72,7 @@ function PostCreateForm() {
             const { data } = await axiosRequest.post('/posts/', formData);
             history.push(`/posts/${data.id}`);
         } catch (err){
-            console.log(err);
+            // console.log(err);
             // if 401 user will be redirected by axiosRequest interceptor logic
             if(err.response?.status !== 401) {
                 setErrors(err.response?.data);
