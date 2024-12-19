@@ -32,7 +32,7 @@ export const CurrentUserProvider = ({ children }) => {
                 (response) => setCurrentUser(response.data)
             );
         } catch (err) {
-            console.log('An error occurred, status: ', err.response.status);
+            // console.log('An error occurred, status: ', err.response.status);
         }
     };
 
