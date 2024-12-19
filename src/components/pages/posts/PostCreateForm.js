@@ -17,6 +17,14 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { axiosRequest } from "../../../api/axiosDefaults";
 import { useRedirect } from "../../../hooks/useRedirect";
 
+/**
+ * PostCreateForm is a React component that renders a form for creating a new post.
+ * It includes fields for the post title, content, and an image upload.
+ * The component handles form submission, image preview, and error display.
+ * It uses the useRedirect hook to redirect logged-out users and manages form data
+ * and errors using React's useState hook. Upon successful submission, it redirects
+ * to the newly created post's page.
+ */
 function PostCreateForm() {
     useRedirect("loggedOut");
     const [errors, setErrors] = useState({});
