@@ -5,6 +5,21 @@ import { axiosResponse } from "../../../api/axiosDefaults";
 
 import styles from "../../../styles/CommentCreateEditForm.module.css";
 
+/**
+ * CommentEditForm is a React component that renders a form for editing a comment.
+ * 
+ * @param {Object} props - The properties passed to the component.
+ * @param {number} props.id - The ID of the comment to be edited.
+ * @param {string} props.content - The current content of the comment.
+ * @param {Function} props.setShowEditForm - Function to toggle the visibility of the edit form.
+ * @param {Function} props.setComments - Function to update the comments state.
+ * 
+ * @returns {JSX.Element} A form element with a textarea for editing the comment content,
+ * and buttons to cancel or save the changes.
+ * 
+ * The form uses axios to send a PUT request to update the comment on the server.
+ * Upon successful update, it updates the local comments state and hides the edit form.
+ */
 function CommentEditForm(props) {
     const { id, content, setShowEditForm, setComments } = props;
 
