@@ -17,6 +17,20 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
 
+/**
+ * Renders the PostsPage component, which displays a list of posts with search functionality.
+ * 
+ * @param {Object} props - The component props.
+ * @param {string} props.message - The message to display when no results are found.
+ * @param {string} [props.filter=""] - The filter query to apply when fetching posts.
+ * 
+ * @returns {JSX.Element} The rendered component.
+ * 
+ * The component uses the `useState` hook to manage the state of posts, loading status, and search query.
+ * It utilizes `useEffect` to fetch posts from the API based on the search query and filter, with a debounce
+ * effect to delay the API request by 1 second after the user stops typing. The component also includes
+ * infinite scrolling to load more posts as the user scrolls down.
+ */
 function PostsPage({ message, filter = "" }) {
     const [posts, setPosts] = useState({ results: [] });
 
