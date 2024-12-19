@@ -1,28 +1,17 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 
-const baseURL = 'http://127.0.0.1:8000/';
+const baseURL = 'https://fikasnap-app-d28b6f6fbe1b.herokuapp.com/';
 
 export const handlers = [
-    // login endpoint
-    rest.get(`${baseURL}dj-rest-auth/user/`, (req, res, ctx) => {
-        return res(ctx.json({
-            id: 1,
-            owner: "bogdan",
-            created_at: "29 Jul 2024",
-            updated_at: "29 Jul 2024",
-            name: "",
-            content: "",
-            image: "https://res.cloudinary.com/dx8eiynnh/image/upload/v1/media/../default_profile_utdxde.jpg",
-            is_owner: false,
-            following_id: null,
-            posts_count: 3,
-            following_count: 0,
-            followers_count: 0
-        }));
-    }),
-
-    // logout endpoint
-    rest.post(`${baseURL}dj-rest-auth/logout/`, (req, res,ctx) => {
-        return res(ctx.status(200));
-    }),
-];
+    http.get(`${baseURL}dj-rest-auth/user`, () => {
+        return HttpResponse.json({
+            "pk": 1,
+            "username": "bogdan",
+            "email": "",
+            "first_name": "",
+            "last_name": "",
+            "profile_id": 1,
+            "profile_image": "https://res.cloudinary.com/dx8eiynnh/image/upload/v1/media/images/default_profile_anfetn"
+        })
+    })
+]
