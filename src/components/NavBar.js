@@ -8,7 +8,13 @@ import axios from "axios";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 import { removeTokenTimestamp } from "../utils/utils";
 
-
+/**
+ * NavBar component renders a responsive navigation bar with links and icons
+ * for different user states (logged in or logged out). It includes functionality
+ * for signing out, toggling the navigation menu, and redirecting to user-specific
+ * pages. The component uses context hooks to manage the current user state and
+ * a custom hook to handle click events outside the navigation menu.
+ */
 const NavBar = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
