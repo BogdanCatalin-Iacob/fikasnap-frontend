@@ -13,6 +13,14 @@ import { Alert, Image } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
 import { axiosRequest } from "../../../api/axiosDefaults";
 
+/**
+ * PostEditForm is a React component that provides a form for editing an existing post.
+ * It fetches the post data on mount and pre-fills the form fields with the current post details.
+ * Users can update the title, content, and image of the post.
+ * If the user is not the owner of the post, they are redirected to the home page.
+ * The form handles input changes, image uploads, and form submission with error handling.
+ * On successful submission, the user is redirected to the updated post's page.
+ */
 function PostEditForm() {
     const [errors, setErrors] = useState({});
 
