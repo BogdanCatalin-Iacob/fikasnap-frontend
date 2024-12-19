@@ -10,6 +10,18 @@ export const SetCurrentUserContext = createContext();
 export const useCurrentUser = () => useContext(CurrentUserContext);
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
 
+/**
+ * CurrentUserProvider is a context provider component that manages the current user's state
+ * and handles authentication token refresh logic. It initializes the current user state
+ * by fetching user data from the server and sets up Axios interceptors to refresh tokens
+ * when necessary. If the refresh token is expired, it redirects the user to the sign-in page.
+ * 
+ * @param {Object} props - The component props.
+ * @param {ReactNode} props.children - The child components to be wrapped by the provider.
+ * 
+ * @returns {JSX.Element} A provider component that supplies the current user and a function
+ * to update the current user to its children.
+ */
 export const CurrentUserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const history = useHistory();
