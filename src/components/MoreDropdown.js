@@ -16,6 +16,15 @@ const ThreeDots = React.forwardRef(({ onClick }, ref) => (
     />
 ));
 
+/**
+ * Renders a customizable dropdown menu with edit and delete options.
+ *
+ * @param {Object} props - The component props.
+ * @param {Function} props.handleEdit - Callback function to handle the edit action.
+ * @param {Function} props.handleDelete - Callback function to handle the delete action.
+ *
+ * @returns {JSX.Element} A dropdown component with edit and delete options.
+ */
 export const MoreDropdown = ({ handleEdit, handleDelete }) => {
     return (
         <Dropdown className="ml-auto" drop="left">
