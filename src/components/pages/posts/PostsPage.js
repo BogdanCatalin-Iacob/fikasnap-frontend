@@ -17,6 +17,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
 
+import { useCurrentUser } from "../../../contexts/CurrentUserContext";
+
 /**
  * Renders the PostsPage component, which displays a list of posts with search functionality.
  * 
@@ -33,6 +35,8 @@ import PopularProfiles from "../profiles/PopularProfiles";
  */
 function PostsPage({ message, filter = "" }) {
     const [posts, setPosts] = useState({ results: [] });
+
+    const currentUser = useCurrentUser();
 
     // loading post will take a moment so keep track of 
     // all data has been fetched or not
@@ -62,7 +66,7 @@ function PostsPage({ message, filter = "" }) {
         return () => {
             clearTimeout(timer);
         }
-    }, [filter, query, pathname]);
+    }, [filter, query, pathname, currentUser]);
 
     return (
         <Row className="h-100">
