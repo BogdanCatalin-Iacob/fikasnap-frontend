@@ -15,6 +15,14 @@ import Asset from "../../Assets";
 import { fetchMoreData } from "../../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
 
+/**
+ * PostPage component fetches and displays a single post and its comments.
+ * It uses the post ID from the URL parameters to retrieve data.
+ * The component manages the state for the post and its comments,
+ * and updates them using API requests. It also handles the display
+ * of popular profiles and allows users to add comments if logged in.
+ * Infinite scrolling is implemented for loading more comments.
+ */
 function PostPage() {
     // fetch the param set in the Route
     const { id } = useParams();
