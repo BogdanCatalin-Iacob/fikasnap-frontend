@@ -16,6 +16,14 @@ import UserPasswordForm from "./components/pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./components/pages/profiles/ProfileEditForm";
 import NotFound from "./components/NotFound";
 
+/**
+ * Main application component that sets up routing for different pages.
+ * Utilizes React Router to define routes for various components such as
+ * PostsPage, SignInForm, SignUpForm, PostCreateForm, PostPage, PostEditForm,
+ * ProfilePage, UsernameForm, UserPasswordForm, ProfileEditForm, and NotFound.
+ * Routes are conditionally rendered based on the current user's profile ID.
+ * The NavBar and main content container are included in the layout.
+ */
 function App() {
     const currentUser = useCurrentUser();
     const profile_id = currentUser?.profile_id || "";
