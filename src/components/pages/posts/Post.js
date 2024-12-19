@@ -1,13 +1,36 @@
 import React from "react";
 import styles from '../../../styles/Post.module.css'
 import { useCurrentUser } from "../../../contexts/CurrentUserContext";
-import { Card, Media, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import Card from 'react-bootstrap/Card';
+import Media from 'react-bootstrap/Media';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import { Link } from "react-router-dom";
 import Avatar from "../../Avatar";
 import { axiosRequest, axiosResponse } from "../../../api/axiosDefaults";
 import { MoreDropdown } from "../../MoreDropdown";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
+/**
+ * Renders a Post component displaying post details and interactions.
+ * 
+ * @param {Object} props - The properties passed to the component.
+ * @param {number} props.id - The unique identifier of the post.
+ * @param {string} props.owner - The username of the post owner.
+ * @param {number} props.profile_id - The profile ID of the post owner.
+ * @param {string} props.profile_image - The URL of the post owner's profile image.
+ * @param {number} props.comments_count - The number of comments on the post.
+ * @param {number} props.likes_count - The number of likes on the post.
+ * @param {number|null} props.like_id - The ID of the like if the current user has liked the post.
+ * @param {string} props.title - The title of the post.
+ * @param {string} props.content - The content of the post.
+ * @param {string} props.image - The URL of the post image.
+ * @param {string} props.updated_at - The last updated timestamp of the post.
+ * @param {boolean} props.postPage - Indicates if the component is rendered on a post page.
+ * @param {Function} props.setPosts - Function to update the posts state.
+ * 
+ * @returns {JSX.Element} A React component that displays a post with options to edit, delete, like, and unlike.
+ */
 const Post = (props) => {
 
     const {
