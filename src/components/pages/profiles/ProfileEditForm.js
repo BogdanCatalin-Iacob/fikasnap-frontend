@@ -18,6 +18,21 @@ import {
 import btnStyle from "./../../../styles/Button.module.css";
 import appStyles from "./../../../App.module.css";
 
+/**
+ * ProfileEditForm is a React component that allows users to edit their profile information.
+ * It fetches the current user's profile data on mount and populates the form fields.
+ * Users can update their name, bio, and profile image.
+ * 
+ * The component uses React hooks for state management and side effects:
+ * - `useCurrentUser` and `useSetCurrentUser` to access and update the current user context.
+ * - `useParams` to retrieve the profile ID from the URL.
+ * - `useHistory` to navigate programmatically.
+ * - `useRef` to handle file input for image uploads.
+ * 
+ * The form submission is handled asynchronously, sending updated data to the server.
+ * If successful, it updates the user's profile image in the context and navigates back.
+ * Errors are displayed using Bootstrap's Alert component.
+ */
 const ProfileEditForm = () => {
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
