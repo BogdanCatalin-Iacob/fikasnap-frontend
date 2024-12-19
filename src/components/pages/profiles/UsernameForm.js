@@ -14,6 +14,19 @@ import { useCurrentUser, useSetCurrentUser } from "../../../contexts/CurrentUser
 import btnStyles from "../../../styles/Button.module.css";
 import appStyles from "../../../App.module.css";
 
+/**
+ * UsernameForm component allows users to change their username.
+ * 
+ * This component fetches the current user's profile and pre-fills the form
+ * with the existing username if the profile ID matches the URL parameter.
+ * If the IDs do not match, it redirects the user to the homepage.
+ * 
+ * The form submission sends a PUT request to update the username and
+ * updates the current user context upon success. It also handles and displays
+ * any validation errors returned from the server.
+ * 
+ * @returns {JSX.Element} A form for changing the username with validation feedback.
+ */
 const UsernameForm = () => {
     const [username, setUsername] = useState("");
     const [errors, setErrors] = useState({});
