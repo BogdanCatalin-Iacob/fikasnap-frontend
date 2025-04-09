@@ -76,17 +76,25 @@ function ProfilePage() {
                 <Col lg={6}>
                     <h3 className="m-2">{profile?.owner}</h3>
                     <Row className="justify-content-center no-gutters">
+                        {/* display number of posts */}
                         <Col xs={3} className="my-2">
-                            <div>{profile?.posts_count}</div>
-                            <div>posts</div>
+                            <div>{profile?.posts_count} &nbsp;
+                                <span>
+                                    {profile?.posts_count === 1 ? 'post' : 'posts'}
+                                </span>
+                            </div>
                         </Col>
+                        {/* display number of followers */}
                         <Col xs={3} className="my-2">
-                            <div>{profile?.followers_count}</div>
-                            <div>followers</div>
+                            <div>{profile?.followers_count} &nbsp;
+                                <span>
+                                    {profile?.followers_count === 1 ? 'follower' : 'followers'}
+                                </span>
+                            </div>
                         </Col>
+                        {/* display number of followed accounts */}
                         <Col xs={3} className="my-2">
-                            <div>{profile?.following_count}</div>
-                            <div>following</div>
+                            <div>{profile?.following_count} &nbsp;<span>following</span></div>
                         </Col>
                     </Row>
                 </Col>
@@ -139,24 +147,32 @@ function ProfilePage() {
     );
 
     return (
-        <Row>
-            <Col className="py-2 p-0 p-lg-2" lg={8}>
-                <PopularProfiles mobile />
-                <Container className={appStyles.Content}>
-                    {hasLoaded ? (
-                        <>
-                            {mainProfile}
-                            {mainProfilePosts}
-                        </>
-                    ) : (
-                        <Asset spinner />
-                    )}
-                </Container>
-            </Col>
-            <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-                <PopularProfiles />
-            </Col>
-        </Row>
+        <>
+            <Row>
+                <Col>
+                    {/* placeholder for cover photo */}
+                    <div style={{backgroundColor: "green", width: "100%", height: "300px"}}></div>
+                </Col>
+            </Row>
+            <Row>
+                <Col className="py-2 p-0 p-lg-2" lg={12}>
+                    {/* <PopularProfiles mobile /> */}
+                    <Container className={appStyles.Content}>
+                        {hasLoaded ? (
+                            <>
+                                {mainProfile}
+                                {mainProfilePosts}
+                            </>
+                        ) : (
+                            <Asset spinner />
+                        )}
+                    </Container>
+                </Col>
+                {/* <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
+                    <PopularProfiles />
+                </Col> */}
+            </Row>
+        </>
     );
 }
 
