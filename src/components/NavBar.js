@@ -2,6 +2,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import styles from "../styles/NavBar.module.css"
 import { NavLink } from "react-router-dom/cjs/react-router-dom";
 import logo from "../assets/camera-shutter.png";
+import profileImg from "../assets/default_profile.jpg";
 import { useCurrentUser, useSetCurrentUser } from "../contexts/CurrentUserContext";
 import Avatar from "./Avatar";
 import axios from "axios";
@@ -75,7 +76,9 @@ const NavBar = () => {
                 to={`/profiles/${currentUser?.profile_id}`}
                 onClick={() => {}}
             >
-                <Avatar src={currentUser?.profile_image} text='Profile' height={40} />
+                {currentUser?.profile ? (<Avatar src={currentUser?.profile_image} text='Profile' height={40} />) :
+                (<Avatar src={profileImg} height={40}/>)}
+                
             </NavLink>
         </>
     );
