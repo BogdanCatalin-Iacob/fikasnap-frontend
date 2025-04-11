@@ -105,3 +105,6 @@ Use Mock Service Worker for testing React components.
         1. Login to Github and locate [GitHub Repository](https://github.com/BogdanCatalin-Iacob/fikasnap-frontend)
         2. Locate the `Fork` button at the right top corner of the project page
         3. Click this to see `Create a new Fork`. Click `Create Fork` and you should have a copy of the original repository on your Github account.
+    
+    *   #### Remote deployment
+        This project is deployed on Heroku. If you don't have an account, you can create one [here](https://dashboard.heroku.com/apps "Heroku").
