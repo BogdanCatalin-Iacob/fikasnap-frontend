@@ -61,8 +61,10 @@ The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.h
 *   Javascript
 *   ReactJs
 *   React-Bootstrap
+*   CSS
 *   Axios
 *   jwt-decode
+*   [Heroku](heroku.com) -> deployment
 
 
 ## Testing
