@@ -12,6 +12,8 @@ The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.h
     * [Local Development](#local-development)
         * [Making a clone](#making-a-clone)
         * [Forking a repository](#forking-the-github-repository)
+    * [Remote deployment](#remote-deployment)
+    * [Deployment to Heroku](#deployment-to-heroku)
     
 ## User experience design
 *   ### User stories
@@ -106,5 +108,25 @@ Use Mock Service Worker for testing React components.
         2. Locate the `Fork` button at the right top corner of the project page
         3. Click this to see `Create a new Fork`. Click `Create Fork` and you should have a copy of the original repository on your Github account.
     
-    *   #### Remote deployment
-        This project is deployed on Heroku. If you don't have an account, you can create one [here](https://dashboard.heroku.com/apps "Heroku").
+*   ### Remote deployment
+    This project is deployed on Heroku. If you don't have an account, you can create one [here](https://dashboard.heroku.com/apps "Heroku").
+
+*   ### Deployment to Heroku
+    1. Login to Heroku.
+    2. Create a new app, the name of the app must be unique and can be different than the project name.
+    3. Go to the local repository clone and make sure it has a 'Procfile' containing:
+    `web: serve -s build`.
+    4. Go to axios API in the local project and set the base url:
+    `axios.defaults.baseURL = 'https://fikasnap-app-d28b6f6fbe1b.herokuapp.com/'`
+    to connect to the backend server (need access form the admin) or create a clone of the backend project and run it on `localhost`.
+    5. Commit changes to Github.
+    6. Go back to Heroku app page and click `Deploy`.
+    7. On Heroku app page, go to `Deployment method` section and choose [Github](https://github.com/).
+    8. A new section will appear called `Connect with Github` giving you an entry box for the repository name to connect to.
+    9. Enter the name of your github project and click `Search`.
+    10. If the repository exists Heroku will list it. Click `Connect`
+    11. Now go down to the next section called `Automatic Deploys`.
+    12. Click `Enable automatic deploys` if you want changes pushed to github to be automatically deployed to Heroku.
+    13. Click `Deploy branch`.
+    You will see the progress bar of the deployment until finally it will say `Your app was successfully deployed`
+    14. Now you can open your live app
