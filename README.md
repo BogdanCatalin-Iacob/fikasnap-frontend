@@ -8,6 +8,8 @@ The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.h
 *   [Testing](#testing)
     *   [Test Types](#test-types)
 * [Debug](#debug)
+* [Deployment](#deployment)
+    * [Local Development](#local-development)
     
 ## User experience design
 *   ### User stories
@@ -81,3 +83,15 @@ Use Mock Service Worker for testing React components.
     *   Remove the timestamp when: 
         *   User's refresh token expires
         *   User logs out
+
+## Deployment
+*    ### Local Development
+    *   #### Making a clone
+    1.  Login to Github and locate [GitHub Repository](https://github.com/BogdanCatalin-Iacob/fikasnap-frontend)
+    2.  Click the `Code` button at the top right corner of the project page
+    3.  To clone the repository using HTTPS, under `HTTPS` tab, copy the link.
+    You could also chioose to open it with Github Desktop, Visual Studio or download it as zip file.
+    4.  Open the `Command Prompt` on your computer
+    5.  Go to the location where you want the clone to be copied.
+    6.  Type ```git clone https://github.com/BogdanCatalin-Iacob/fikasnap-frontend```
+    7.  Pressing `Enter` on the keyboard will create a clone of the repository
