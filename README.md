@@ -4,6 +4,7 @@ The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.h
 ## Table of contents
 *   [User Experience Design](#user-experience-design)
     *   [User Stories](#user-stories)
+    *   [Structure](#structure)
 *   [Technologies](#technologies-and-libraries)
 *   [Testing](#testing)
     *   [Test Types](#test-types)
@@ -56,6 +57,22 @@ The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.h
     | 28 | User | View all the posts by a specific user | Catch up on their latest posts or follow them |
     | 29 | Profile Owner | Logged in user can edit own profile | Change profile picture and bio |
     | 30 | Profile Owner | Logged in user can update username and password | Change my display name and keep my profile secure |
+
+*   ### Structure
+    - NavBar at the top of the page:
+        - For logged out users displays:
+            - Home page button
+            - Sign in button
+            - Sign up button
+        - For logged in users displays:
+            - Home page link
+            - Feed button to posts page
+            - Liked button to show posts liked by the user
+            - Sign out button
+            - User profile image linked to profile page
+    - Components container
+        - 
+
 
 ## Technologies and libraries
 *   Javascript
