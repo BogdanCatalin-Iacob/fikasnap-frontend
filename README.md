@@ -72,7 +72,9 @@ The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.h
             - Sign out button
             - User profile image linked to profile page
     - Components container
-        - 
+        - Search posts bar at the top of the page
+        - Posts made by users starting with the latest
+    
 
 
 ## Technologies and libraries
