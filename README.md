@@ -65,6 +65,7 @@ The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.h
             - Sign in button
             - Sign up button
         - For logged in users displays:
+            - Add post button
             - Home page link
             - Feed button to posts page
             - Liked button to show posts liked by the user
