@@ -74,7 +74,17 @@ The live app can be found at [FikaSnap](https://fikasnap-frontend-b2471d63280f.h
     - Components container
         - Search posts bar at the top of the page
         - Posts made by users starting with the latest
-    
+    - Post component
+        - Profile image of the user who made the post and link to profile
+        - Date of post creation
+        - Post image
+        - Post description
+        - Post likes
+        - Post comments
+            - text area for the logged in user to comment on a post
+            - button to submit the comment
+            - list of all comments of a post
+
 
 
 ## Technologies and libraries
